@@ -1,0 +1,144 @@
+const quizContainer = document.getElementById('quiz');
+const resultsContainer = document.getElementById('results');
+const submitButton  = document.getElementById('submit');
+
+
+const myQuestions = [
+    {   question: "What is Descartes best known for?",
+        answers: {
+            a: "Philosophy", 
+            b: "Mathematics",  
+            c: "Both"
+        },
+        correctAnswer: "c"
+    },
+    {   
+        question: "Finish this quote ‘Cogito, ergo…….’",
+        answers: {
+            a: "…solvam (pay)",
+            b: "…sum (am)",
+            c: "…sciam (know)",
+            d: "…vocare (call)"
+        },
+        correctAnswer: "b"
+    },
+
+    {   
+        question: "What does ‘Cogito, ergo sum’ translate too?",
+        answers: {
+            a: "‘I think, therefore I live.’",
+            b: "‘I think, therefore I understand.’",
+            c: "‘I think, therefore I am.’",
+            d: "‘I think, therefore I know."
+        },
+        correctAnswer: "c"
+    },
+
+    {   question: "In Descartes ‘Discourse on Methods’ did he doubt the connection between…",
+        answers: {
+            a: "Mind and Body",
+            b: "Soul and Mind",
+            c: "Heart and Head",
+            d: "Soul and Heart"
+        },
+        correctAnswer: 'a'
+    }
+];
+
+
+function buildQuiz(){
+    const output = [ 
+        "Q1. What is Descartes best known for?",
+        "a.	Philosophy",
+        "b.	Mathematics", 
+        "c.	Both",
+        "A1. C. Descartes is best known for both, using his mathematic theories to help aide his philosophical works.",
+        
+        "Q2. Finish this quote ‘Cogito, ergo…….’", 
+        "a.	‘…solvam’ (pay)",
+        "b.	‘…sum’ (am)",
+        "c.	‘…sciam’ (know)",
+        "d.	‘…vocare’ (call)",
+        "A2. B. ‘…sum’", 
+        
+        "Q3. What does ‘Cogito, ergo sum’ translate too?",
+        "a.	‘I think, therefore I live.’",
+        "b.	‘I think, therefore I understand.’",
+        "c.	‘I think, therefore I am.’",
+        "d.	‘I think, therefore I know.’",
+        "A3. C. ‘I think, therefore I am.’ Not only is this known as an indubitable statement but it may be one of the only things we ever really ‘know’.",
+        
+        "Q4.  In Descartes ‘Discourse on Methods’ did he doubt the connection between…",
+        "a.	Mind and Body.",
+        "b.	Soul and Mind.",
+        "c.	Heart and Head.",
+        "d.	Soul and Heart.",
+        "A4. A. Mind and Body. Descartes in his ‘Discourse on Methods’ repeatedly discussed whether and the mind and the body were linked an issue that kept him and his followers perplexed. Eventually settled on the connection being God, but not before 6 separate mediations on it."
+        ];
+
+    myQuestions.forEach(
+        (currentQuestion, questionNumber) => {
+            const answers = [];
+            for(letter in currentQuestion.answers){
+                answers.push(
+                    `<label>
+                        <input type="radio" name="questions${questionNumber}" value="${letter}">
+                            ${letter} :
+                            ${currentQuestion.answers[letter]}
+                    </label>`
+                );
+            }
+            output.push(
+                `<div class="question"> ${currentQuestion.quiz} </div>
+                <div class="answers"> ${answers.join('')} </div>`
+            );
+        }
+    )
+}
+
+function showResutls(){
+    const answerContainers = quizContainer.querySelectorAll('.answers');
+    let numCorrect = 0;
+
+    myQuestions.forEach( (currentQuestion, questionNumber) => {
+        const answerContainer = answerContainers[questionNumber];
+        const selector = `input[name=question${questionNumber}]:checked`;
+        const userAnswer = (answerContainer.querySelector(selector) || {}).Value;
+
+        if(userAnswer === currentQuestion.correctAnswer){
+            numCorrect++;
+            answerContainers[questionNumber].style.color = 'green';
+        }
+        else{answerContainers[questionNumber].style.color = "red";
+        }
+    });
+
+    resultsContainer.innerHTML = `${numCorrect} out of ${myQuestions.length}`;
+}
+
+buildQuiz();
+
+submitButton.addEventListener('click', showResutls);
+
+
+<div id="question">Finish this quote ‘Cogito, ergo……’</div>
+                    <div id="answer-buttons" class="bttn-grid">
+                        <button class="bttn">a.	‘…solvam’ (pay)</button>
+                        <button class="bttn"> b. ‘…sum’ (am)</button>
+                        <button class="bttn">c.	‘…sciam’ (know)</button>
+                        <button class="bttn">d.	‘…vocare’ (call)</button>
+                    </div>
+                    <div id="question">What does ‘Cogito, ergo sum’ translate too?</div>
+                    <div id="answer-buttons" class="bttn-grid">
+                        <button class="bttn">a.	‘I think, therefore I live.’</button>
+                        <button class="bttn">b.	‘I think, therefore I understand.’</button>
+                        <button class="bttn">c.	‘I think, therefore I am.’</button>
+                        <button class="bttn">d.	‘I think, therefore I know.’</button>
+                    </div>
+                    <div id="question">In Descartes ‘Discourse on Methods’ did he doubt the connection between?</div>
+                    <div id="answer-buttons">
+                        <button class="bttn">a.	Mind and Body.</button>
+                        <button class="bttn">b. Soul and Mind.</button>
+                        <button class="bttn">c.	Heart and Head.</button>
+                        <button class="bttn">d.	Soul and Heart.</button>
+                    </div>
