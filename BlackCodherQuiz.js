@@ -6,6 +6,7 @@ const questionElement = document.getElementById('question')
 const answerButtonElement = document.getElementById('answer-buttons')
 
 let shuffledQuestions, currentQuestionsIndex
+let countRightAnswers = 0
 
 startButton.addEventListener('click', startGame)
 nextButton.addEventListener('click', () => {
@@ -20,6 +21,7 @@ function startGame() {
     currentQuestionsIndex = 0
     questionContainerElement.classList.remove('hide')
     setNextQuestion()
+    countRightAnswers = 0;
 }
 
 function setNextQuestion() {
@@ -62,8 +64,10 @@ function selectAnswer(e) {
    } else {
        startButton.innerText = 'Restart'
        startButton.classList.remove('hide')
+   } if (selectedButton.dataset = correct) {
+       countRightAnswers++; +1
    }
-   
+   document.getElementById('right-answers').innerHTML=countRightAnswers;
 }
 
 function setStatusClass(element, correct) {
