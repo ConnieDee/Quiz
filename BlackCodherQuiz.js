@@ -115,5 +115,4 @@ const questions = [
         {text: 'c: "Heart and Head"', correct: false},
         {text: 'd: "Soul and Heart"', correct: false}, 
     ]
-}
-]
+} ]
